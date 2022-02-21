@@ -1,0 +1,211 @@
+:root {
+  --Grayish-blue: hsl(237, 18%, 59%);
+  --Soft-red: hsl(345, 95%, 68%);
+
+  /* Neutral */
+  --White: hsl(0, 0%, 100%);
+  --Dark-desaturated-blue: hsl(236, 21%, 26%);
+  --Very-dark-blue: hsl(235, 16%, 14%);
+  --Black-blue: hsl(234, 17%, 12%);
+  /* fonts */
+  --ff-sans: "Red Hat Text", Arial, sans-serif;
+}
+/* ------------------------------------------------------------- Global 
+-----------------------------------------------------------------------------  */
+html {
+  box-sizing: border-box;
+  font-size: 14px;
+}
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+h1 {
+  margin: 0;
+}
+body {
+  font-size: 14px;
+  font-family: var(--ff-sans);
+  background: url(./images/pattern-hills.svg) no-repeat,
+    url(./images/bg-stars.svg), hsl(268, 21%, 14%);
+  background-size: 300% 20%, 160% auto;
+  background-repeat: no-repeat, repeat-y;
+  background-position: right 16.5% bottom, center center;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0 2rem;
+  display: grid;
+  gap: 3rem;
+  grid-template-rows: repeat(2, 0.5fr) repeat(2, 1fr);
+  grid-template-columns: 1fr;
+  justify-content: center;
+}
+
+/* ------------------------------------------------------------- Header
+-----------------------------------------------------------------------------  */
+.fast-forward,
+.rewind {
+  background-color: hsl(236, 21%, 26%);
+  color: hsl(0, 0%, 100%);
+  border: 0;
+  border-radius: 5px;
+  font-size: 1.5rem;
+  padding: 0.5rem 1rem;
+  position: fixed;
+  top: 5%;
+  cursor: pointer;
+}
+.pop-up {
+  position: fixed;
+  background-color: khaki;
+  color: #333;
+  padding: 0.75rem 0;
+  display: flex;
+  justify-content: center;
+  width: 60px;
+  border-radius: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  top: max(100px, 10%);
+  color: #666;
+  opacity: 0;
+  transition: opacity 300ms ease-in-out;
+}
+.pop-up.shown {
+  opacity: 1;
+}
+.fast-forward {
+  left: 51%;
+}
+.rewind {
+  right: 51%;
+}
+
+header {
+  grid-row: 2 / 3;
+  /* align-self: center; */
+}
+.title {
+  color: hsl(0, 0%, 100%);
+  font-weight: 300;
+  font-size: clamp(1.125rem, 6vw, 2.5rem);
+  font-weight: thin;
+  text-transform: uppercase;
+  letter-spacing: 6px;
+  text-align: center;
+}
+
+/* ------------------------------------------------------------- Main
+-----------------------------------------------------------------------------  */
+main {
+  grid-row: 3 / 4;
+}
+.countdown {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  color: var(--Soft-red);
+  gap: 1.75rem;
+}
+.time {
+  flex-basis: 100%;
+  max-width: 90px;
+}
+
+.time > .number-cont {
+  position: relative;
+  color: hsl(237, 20%, 18%);
+  background: linear-gradient(
+    to bottom,
+    hsl(237, 20%, 18%) 50%,
+    var(--Dark-desaturated-blue) 50%,
+    var(--Dark-desaturated-blue) 100%
+  );
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+}
+.time .number {
+  font-size: clamp(1rem, 7vw, 3.5rem);
+  line-height: 1;
+  padding: 1rem 0;
+  margin: 0;
+  background: linear-gradient(
+    hsl(342, 41%, 45%) 50%,
+    var(--Soft-red) 50%,
+    var(--Soft-red) 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.time .number-cont::after,
+.time .number-cont::before {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  z-index: 3;
+  top: 50%;
+  width: 8px;
+  aspect-ratio: 1;
+  background-color: hsl(268, 21%, 14%);
+}
+.time .number-cont::after {
+  left: 0;
+  transform: translate(-50%, -50%);
+}
+.time .number-cont::before {
+  right: 0;
+  transform: translate(50%, -50%);
+}
+.time .txt {
+  font-size: clamp(0.25rem, 2vw, 0.875rem);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--Grayish-blue);
+}
+
+/* ------------------------------------------------------------- Footer
+-----------------------------------------------------------------------------  */
+footer {
+  grid-row: 4 / 5;
+  align-self: end;
+}
+.social-cont {
+  padding: 2.5rem 0;
+  display: flex;
+  gap: 2.5rem;
+  justify-content: center;
+  align-items: flex-end;
+}
+.social-cont svg {
+  cursor: pointer;
+}
+.social-cont > svg:hover path {
+  transition: fill 150ms ease-out;
+  fill: var(--Soft-red);
+}
+/* --------------------------------------------------  Helpers */
+.number-cont.over {
+  transition: transform 500ms 1s ease-in;
+  transform-origin: bottom right;
+  transform: rotate(-74deg);
+}
+.number-cont.over + .txt {
+  transition: color 500ms ease-in;
+  color: #f00;
+}
+/* .final-seconds {
+  animation: heartBeat 1s ease-in-out 0s 10 forwards;
+} */
+@keyframes heartBeat {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
